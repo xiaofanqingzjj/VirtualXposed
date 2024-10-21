@@ -56,8 +56,10 @@ public class Installd {
             if (info.disableMultiVersion) {
                 addResult.justEnableHidden = false;
             }
-            if (addResult.justEnableHidden) {
+            if (addResult.justEnableHidden) { // 已经安装过
                 int[] userIds = installedAppInfo.getInstalledUsers();
+
+                // 生成一个userId
                 int nextUserId = userIds.length;
                 /*
                   Input : userIds = {0, 1, 3}
@@ -79,13 +81,15 @@ public class Installd {
                         throw new IllegalStateException();
                     }
                 }
+
                 boolean success = VirtualCore.get().installPackageAsUser(nextUserId, info.packageName);
                 if (!success) {
                     throw new IllegalStateException();
                 }
-            } else {
+            } else { // 没安装过
                 PackageInfo pkgInfo = null;
                 try {
+                    //
                     pkgInfo = XApp.getApp().getPackageManager().getPackageArchiveInfo(info.path, 0);
                     pkgInfo.applicationInfo.sourceDir = info.path;
                     pkgInfo.applicationInfo.publicSourceDir = info.path;

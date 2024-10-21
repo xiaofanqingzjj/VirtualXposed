@@ -45,6 +45,7 @@ public class MethodInvocationStub<T> {
         this.mBaseInterface = baseInterface;
         if (baseInterface != null) {
             if (proxyInterfaces == null) {
+                // 获取Class实现所有的Interface列表
                 proxyInterfaces = MethodParameterUtils.getAllInterface(baseInterface.getClass());
             }
             mProxyInterface = (T) Proxy.newProxyInstance(baseInterface.getClass().getClassLoader(), proxyInterfaces, new HookInvocationHandler());

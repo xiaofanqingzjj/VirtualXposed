@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android' // 使用kotlin-android插件
 
 Properties properties = new Properties()
 def localProp = file(project.rootProject.file('local.properties'))
@@ -75,7 +76,8 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':lib')
-    implementation project(':launcher')
+    implementation project(":mylibrary")
+//    implementation project(':Launcher3')
     //Android Lib
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.android.support:appcompat-v7:27.1.1'
@@ -100,4 +102,6 @@ dependencies {
         exclude(group: "com.android.support")
     }
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version" // 依赖kotlin标准库
 }

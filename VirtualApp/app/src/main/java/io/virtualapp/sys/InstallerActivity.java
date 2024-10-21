@@ -1,6 +1,7 @@
 package io.virtualapp.sys;
 
 import android.app.AlertDialog;
+import android.app.Tags;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -8,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -207,6 +209,8 @@ public class InstallerActivity extends AppCompatActivity {
             PackageInfo applicationInfo = installedAppInfo.getPackageInfo(0);
             currentVersion = applicationInfo.versionName;
             currentVersionCode = applicationInfo.versionCode;
+
+            Log.e(Tags.TAG, "dealUpdate installer packge:" + applicationInfo.packageName + ", versionName:" + currentVersion + ", versionCode:" + currentVersionCode);
 
             PackageInfo packageArchiveInfo = packageManager.getPackageArchiveInfo(appInfoLite.path, 0);
             toInstalledVersion = packageArchiveInfo.versionName;

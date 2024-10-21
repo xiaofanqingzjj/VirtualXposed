@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/btn_test"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:padding="6dp"
+            android:src="@android:drawable/ic_dialog_info"
+            android:contentDescription="Action Button" />
+
+        <ImageView
+            android:id="@+id/btn_set"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:padding="6dp"
+            android:src="@android:drawable/ic_menu_manage"
+            android:contentDescription="Action Button" />
+    </android.support.v7.widget.Toolbar>
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/empty_view"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:visibility="gone"
+        android:text="No Data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

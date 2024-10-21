@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
 
 public class NougatPolicy {
 
-    static boolean fullCompile(Context context) {
+    public static boolean fullCompile(Context context) {
         if (Build.VERSION.SDK_INT < 24) {
             return true;
         }

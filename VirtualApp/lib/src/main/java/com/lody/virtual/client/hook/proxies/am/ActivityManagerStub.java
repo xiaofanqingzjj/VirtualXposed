@@ -92,9 +92,10 @@ public class ActivityManagerStub extends MethodInvocationProxy<MethodInvocationS
                     Object _infos = method.invoke(who, args);
                     //noinspection unchecked
                     List<ActivityManager.RecentTaskInfo> infos =
-                            ParceledListSliceCompat.isReturnParceledListSlice(method)
+                            (List<ActivityManager.RecentTaskInfo>) (ParceledListSliceCompat.isReturnParceledListSlice(method)
                                     ? ParceledListSlice.getList.call(_infos)
-                                    : (List) _infos;
+                                    :  _infos);
+
                     for (ActivityManager.RecentTaskInfo info : infos) {
                         AppTaskInfo taskInfo = VActivityManager.get().getTaskInfo(info.id);
                         if (taskInfo == null) {
@@ -124,9 +125,9 @@ public class ActivityManagerStub extends MethodInvocationProxy<MethodInvocationS
                     Object _infos = method.invoke(who, args);
                     //noinspection unchecked
                     List<ActivityManager.RunningTaskInfo> infos =
-                            ParceledListSliceCompat.isReturnParceledListSlice(method)
+                            (List<ActivityManager.RunningTaskInfo>)(ParceledListSliceCompat.isReturnParceledListSlice(method)
                                     ? ParceledListSlice.getList.call(_infos)
-                                    : (List) _infos;
+                                    : _infos);
                     for (ActivityManager.RunningTaskInfo info : infos) {
                         AppTaskInfo taskInfo = VActivityManager.get().getTaskInfo(info.id);
                         if (taskInfo == null) {

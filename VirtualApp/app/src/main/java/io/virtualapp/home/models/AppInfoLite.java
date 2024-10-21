@@ -51,4 +51,14 @@ public class AppInfoLite implements Parcelable {
         dest.writeByte(this.fastOpen ? (byte) 1 : (byte) 0);
         dest.writeByte(this.disableMultiVersion ? (byte) 1 : (byte) 0);
     }
+
+    @Override
+    public String toString() {
+        return "AppInfoLite{" +
+                "packageName='" + packageName + '\'' +
+                ", path='" + path + '\'' +
+                ", fastOpen=" + fastOpen +
+                ", disableMultiVersion=" + disableMultiVersion +
+                '}';
+    }
 }

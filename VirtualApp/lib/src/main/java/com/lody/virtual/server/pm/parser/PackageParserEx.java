@@ -1,5 +1,6 @@
 package com.lody.virtual.server.pm.parser;
 
+import android.app.Tags;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.ConfigurationInfo;
@@ -17,6 +18,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.lody.virtual.client.core.VirtualCore;
 import com.lody.virtual.client.env.Constants;
@@ -100,6 +102,7 @@ public class PackageParserEx {
                 throw new IllegalStateException("Invalid version.");
             }
             VPackage pkg = new VPackage(p);
+            Log.w(Tags.TAG, "readPackageCache: pkg:" + pkg);
             addOwner(pkg);
             return pkg;
         } catch (Exception e) {

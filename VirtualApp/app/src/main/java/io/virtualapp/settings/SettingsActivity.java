@@ -13,7 +13,6 @@ import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.widget.Toast;
 
-import com.android.launcher3.LauncherFiles;
 import com.lody.virtual.client.core.VirtualCore;
 import com.lody.virtual.client.env.Constants;
 import com.lody.virtual.client.ipc.VActivityManager;
@@ -24,6 +23,7 @@ import java.io.IOException;
 import io.virtualapp.R;
 import io.virtualapp.VCommends;
 import io.virtualapp.gms.FakeGms;
+import io.virtualapp.home.LauncherFiles;
 import io.virtualapp.home.ListAppActivity;
 import io.virtualapp.utils.Misc;
 
@@ -149,7 +149,7 @@ public class SettingsActivity extends Activity {
             });
 
             desktop.setOnPreferenceClickListener(preference -> {
-                startActivity(new Intent(getActivity(), com.google.android.apps.nexuslauncher.SettingsActivity.class));
+//                startActivity(new Intent(getActivity(), com.google.android.apps.nexuslauncher.SettingsActivity.class));
                 return false;
             });
 

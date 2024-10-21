@@ -3,6 +3,8 @@ package io.virtualapp.settings;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -25,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lody.virtual.client.core.VirtualCore;
+import com.lody.virtual.client.ipc.VActivityManager;
 import com.lody.virtual.client.ipc.VirtualStorageManager;
 import com.lody.virtual.helper.ArtDexOptimizer;
 import com.lody.virtual.os.VEnvironment;
@@ -39,6 +42,7 @@ import io.virtualapp.R;
 import io.virtualapp.abs.ui.VActivity;
 import io.virtualapp.abs.ui.VUiKit;
 import io.virtualapp.glide.GlideUtils;
+import io.virtualapp.home.LoadingActivity;
 
 /**
  * @author weishu
@@ -61,10 +65,40 @@ public class AppManageActivity extends VActivity {
 
         mListView.setOnItemClickListener((parent, view, position, id) -> {
             AppManageInfo appManageInfo = mInstalledApps.get(position);
-            showContextMenu(appManageInfo, view);
+//            showContextMenu(appManageInfo, view);
+//            appManageInfo.
+//            startVirtualActivity();
+
+            LoadingActivity.launch(getApplicationContext(), appManageInfo.pkgName, appManageInfo.userId);
         });
         loadAsync();
     }
+
+    public void startVirtualActivity(Intent intent, Bundle options, int usedId) {
+        String packageName = intent.getPackage();
+        if (TextUtils.isEmpty(packageName)) {
+            ComponentName component = intent.getComponent();
+            if (component != null) {
+                packageName = component.getPackageName();
+            }
+        }
+        if (packageName == null) {
+            try {
+                startActivity(intent);
+                return;
+            } catch (Throwable ignored) {
+                // ignore
+            }
+        }
+        boolean result = LoadingActivity.launch(this, packageName, usedId);
+        if (!result) {
+            throw new ActivityNotFoundException("can not launch activity for :" + intent);
+        }
+//        if (mDirectlyBack) {
+//            finish();
+//        }
+    }
+
 
     private void loadAsync() {
         VUiKit.defer().when(this::loadApp).done((v) -> mAdapter.notifyDataSetChanged());
@@ -237,8 +271,8 @@ public class AppManageActivity extends VActivity {
 
     private void showUninstallDialog(AppManageInfo item, CharSequence name) {
         AlertDialog alertDialog = new AlertDialog.Builder(AppManageActivity.this)
-                .setTitle(com.android.launcher3.R.string.home_menu_delete_title)
-                .setMessage(getResources().getString(com.android.launcher3.R.string.home_menu_delete_content, name))
+//                .setTitle(com.android.launcher3.R.string.home_menu_delete_title)
+//                .setMessage(getResources().getString(com.android.launcher3.R.string.home_menu_delete_content, name))
                 .setPositiveButton(android.R.string.yes, (dialog, which) -> {
                     VirtualCore.get().uninstallPackageAsUser(item.pkgName, item.userId);
                     loadAsync();

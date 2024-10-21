@@ -1,6 +1,8 @@
 package com.lody.virtual.server.pm;
 
+import android.app.Tags;
 import android.os.Parcel;
+import android.util.Log;
 
 import com.lody.virtual.helper.PersistenceLayer;
 import com.lody.virtual.os.VEnvironment;
@@ -13,6 +15,8 @@ import java.util.Arrays;
  */
 
 class PackagePersistenceLayer extends PersistenceLayer {
+
+
 
     private static final char[] MAGIC = {'v', 'p', 'k', 'g'};
     private static final int CURRENT_VERSION = 3;
@@ -57,6 +61,7 @@ class PackagePersistenceLayer extends PersistenceLayer {
         int count = p.readInt();
         while (count-- > 0) {
             PackageSetting setting = new PackageSetting(p);
+            Log.d(Tags.TAG, "readPersistenceData settings:" + setting);
             mService.loadPackage(setting);
         }
     }

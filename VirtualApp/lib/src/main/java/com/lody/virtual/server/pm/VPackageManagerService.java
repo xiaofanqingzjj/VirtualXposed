@@ -260,8 +260,11 @@ public class VPackageManagerService extends IPackageManager.Stub {
         PackageInfo packageInfo = PackageParserEx.generatePackageInfo(p, flags,
                 ps.firstInstallTime, ps.lastUpdateTime, ps.readUserState(userId), userId);
         if (packageInfo != null) {
+
+            // Fixed packageInfo 序列化再反序列化之后数据就没了
             Parcel parcel = Parcel.obtain();
             packageInfo.writeToParcel(parcel, 0);
+            parcel.setDataPosition(0);
             PackageInfo info = PackageInfo.CREATOR.createFromParcel(parcel);
             parcel.recycle();
             return info;

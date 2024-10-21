@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.lody.virtual.client.VClientImpl;
 import com.lody.virtual.client.core.InvocationStubManager;
@@ -19,10 +20,13 @@ import com.lody.virtual.remote.StubActivityRecord;
  */
 public abstract class StubActivity extends Activity {
 
+	static final String TAG = "StubActivity";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// The savedInstanceState's classLoader is not exist.
 		super.onCreate(null);
+		Log.d(TAG, "onCreate" + getIntent());
 		finish();
         // It seems that we have conflict with the other Android-Plugin-Framework.
 		Intent stubIntent = getIntent();

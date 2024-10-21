@@ -576,4 +576,14 @@ public class VPackage implements Parcelable {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return "VPackage{" +
+                "packageName='" + packageName + '\'' +
+                ", mVersionName='" + mVersionName + '\'' +
+                ", mSharedUserId='" + mSharedUserId + '\'' +
+                ", mVersionCode=" + mVersionCode + '\'' +
+                '}';
+    }
 }

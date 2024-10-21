@@ -18,6 +18,7 @@ import android.os.PowerManager;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -26,8 +27,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.android.launcher3.LauncherFiles;
-import com.google.android.apps.nexuslauncher.NexusLauncherActivity;
+//import com.android.launcher3.LauncherFiles;
+//import com.google.android.apps.nexuslauncher.NexusLauncherActivity;
+//import com.google.android.apps.nexuslauncher.NexusLauncherActivity;
 import com.lody.virtual.client.core.InstallStrategy;
 import com.lody.virtual.client.core.VirtualCore;
 import com.lody.virtual.helper.utils.DeviceUtil;
@@ -56,10 +58,12 @@ import static io.virtualapp.XApp.XPOSED_INSTALLER_PACKAGE;
  * @date 18/2/9.
  */
 
-public class NewHomeActivity extends NexusLauncherActivity {
+public class NewHomeActivity extends AppCompatActivity {
 
     private static final String SHOW_DOZE_ALERT_KEY = "SHOW_DOZE_ALERT_KEY";
     private static final String WALLPAPER_FILE_NAME = "wallpaper.png";
+
+    static final String TAG = "NewHomeActivity";
 
     private Handler mUiHandler;
     private boolean mDirectlyBack = false;
@@ -76,6 +80,23 @@ public class NewHomeActivity extends NexusLauncherActivity {
     public void onCreate(Bundle savedInstanceState) {
         SharedPreferences sharedPreferences = getSharedPreferences(LauncherFiles.SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE);
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_main);
+
+        findViewById(R.id.btn_app_list).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        findViewById(R.id.btn_set).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSettingsClicked();
+            }
+        });
+
         showMenuKey();
         mUiHandler = new Handler(getMainLooper());
         alertForMeizu();
@@ -188,7 +209,7 @@ public class NewHomeActivity extends NexusLauncherActivity {
         return this;
     }
 
-    @Override
+//    @Override
     public void onClickAddWidgetButton(View view) {
         onAddAppClicked();
     }
@@ -201,17 +222,17 @@ public class NewHomeActivity extends NexusLauncherActivity {
         startActivity(new Intent(NewHomeActivity.this, SettingsActivity.class));
     }
 
-    @Override
+//    @Override
     public void onClickSettingsButton(View v) {
         onSettingsClicked();
     }
 
-    @Override
+//    @Override
     protected void onClickAllAppsButton(View v) {
         onSettingsClicked();
     }
 
-    @Override
+//    @Override
     public void startVirtualActivity(Intent intent, Bundle options, int usedId) {
         String packageName = intent.getPackage();
         if (TextUtils.isEmpty(packageName)) {
@@ -244,7 +265,6 @@ public class NewHomeActivity extends NexusLauncherActivity {
             return;
         }
         AlertDialog alertDialog = new AlertDialog.Builder(getContext())
-                .setTitle(R.string.about_donate)
                 .setMessage(R.string.donate_dialog_content)
                 .setPositiveButton(android.R.string.yes, (dialog, which) -> {
                     Misc.showDonate(this);
@@ -329,28 +349,28 @@ public class NewHomeActivity extends NexusLauncherActivity {
     }
 
     private void setWallpaper() {
-        File wallpaper = getFileStreamPath(WALLPAPER_FILE_NAME);
-        if (wallpaper == null || !wallpaper.exists() || wallpaper.isDirectory()) {
-            setOurWallpaper(getResources().getDrawable(R.drawable.home_bg));
-        } else {
-            long start = SystemClock.elapsedRealtime();
-            Drawable d;
-            try {
-                d = BitmapDrawable.createFromPath(wallpaper.getPath());
-            } catch (Throwable e) {
-                Toast.makeText(getApplicationContext(), R.string.wallpaper_too_big_tips, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            long cost = SystemClock.elapsedRealtime() - start;
-            if (cost > 200) {
-                Toast.makeText(getApplicationContext(), R.string.wallpaper_too_big_tips, Toast.LENGTH_SHORT).show();
-            }
-            if (d == null) {
-                setOurWallpaper(getResources().getDrawable(R.drawable.home_bg));
-            } else {
-                setOurWallpaper(d);
-            }
-        }
+//        File wallpaper = getFileStreamPath(WALLPAPER_FILE_NAME);
+//        if (wallpaper == null || !wallpaper.exists() || wallpaper.isDirectory()) {
+//            setOurWallpaper(getResources().getDrawable(R.drawable.home_bg));
+//        } else {
+//            long start = SystemClock.elapsedRealtime();
+//            Drawable d;
+//            try {
+//                d = BitmapDrawable.createFromPath(wallpaper.getPath());
+//            } catch (Throwable e) {
+//                Toast.makeText(getApplicationContext(), R.string.wallpaper_too_big_tips, Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//            long cost = SystemClock.elapsedRealtime() - start;
+//            if (cost > 200) {
+//                Toast.makeText(getApplicationContext(), R.string.wallpaper_too_big_tips, Toast.LENGTH_SHORT).show();
+//            }
+//            if (d == null) {
+//                setOurWallpaper(getResources().getDrawable(R.drawable.home_bg));
+//            } else {
+//                setOurWallpaper(d);
+//            }
+//        }
     }
 
     private void showMenuKey() {

@@ -26,6 +26,7 @@ import android.os.Looper;
 import android.os.Process;
 import android.os.RemoteException;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.lody.virtual.R;
@@ -64,6 +65,8 @@ import mirror.android.app.ActivityThread;
  * @version 3.5
  */
 public final class VirtualCore {
+
+    static final String TAG = "VirtualCore";
 
     public static final int GET_HIDDEN_APP = 0x00000001;
 
@@ -180,6 +183,9 @@ public final class VirtualCore {
 
 
     public void startup(Context context) throws Throwable {
+
+
+
         if (!isStartUp) {
             if (Looper.myLooper() != Looper.getMainLooper()) {
                 throw new IllegalStateException("VirtualCore.startup() must called in main thread.");
@@ -193,6 +199,9 @@ public final class VirtualCore {
             unHookPackageManager = context.getPackageManager();
             hostPkgInfo = unHookPackageManager.getPackageInfo(context.getPackageName(), PackageManager.GET_PROVIDERS);
             detectProcessType();
+
+            Log.d(TAG, "startup mainProcessName:" + mainProcessName + ", processName:" + processName + ", processType:" + processType);
+
             InvocationStubManager invocationStubManager = InvocationStubManager.getInstance();
             invocationStubManager.init();
             invocationStubManager.injectAll();
@@ -416,10 +425,12 @@ public final class VirtualCore {
     }
 
     public Intent getLaunchIntent(String packageName, int userId) {
-        VPackageManager pm = VPackageManager.get();
+        final VPackageManager pm = VPackageManager.get();
+
         Intent intentToResolve = new Intent(Intent.ACTION_MAIN);
         intentToResolve.addCategory(Intent.CATEGORY_INFO);
         intentToResolve.setPackage(packageName);
+
         List<ResolveInfo> ris = pm.queryIntentActivities(intentToResolve, intentToResolve.resolveType(context), 0, userId);
 
         // Otherwise, try to find a main launcher activity.

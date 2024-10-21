@@ -58,12 +58,12 @@ public class LoadingActivity extends VActivity {
     private long start;
 
     public static boolean launch(Context context, String packageName, int userId) {
-        Intent intent = VirtualCore.get().getLaunchIntent(packageName, userId);
-        if (intent != null) {
+        Intent appLaunchIntent = VirtualCore.get().getLaunchIntent(packageName, userId);
+        if (appLaunchIntent != null) {
             Intent loadingPageIntent = new Intent(context, LoadingActivity.class);
             loadingPageIntent.putExtra(Constants.PASS_PKG_NAME_ARGUMENT, packageName);
             loadingPageIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            loadingPageIntent.putExtra(Constants.PASS_KEY_INTENT, intent);
+            loadingPageIntent.putExtra(Constants.PASS_KEY_INTENT, appLaunchIntent);
             loadingPageIntent.putExtra(Constants.PASS_KEY_USER, userId);
             context.startActivity(loadingPageIntent);
             return true;

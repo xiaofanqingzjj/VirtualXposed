@@ -125,4 +125,17 @@ public class PackageSetting implements Parcelable {
     public void setInstalled(int userId, boolean installed) {
         modifyUserState(userId).installed = installed;
     }
+
+    @Override
+    public String toString() {
+        return "PackageSetting{" +
+                "packageName='" + packageName + '\'' +
+                ", apkPath='" + apkPath + '\'' +
+                ", libPath='" + libPath + '\'' +
+                ", dependSystem=" + dependSystem +
+                ", skipDexOpt=" + skipDexOpt +
+                ", appId=" + appId +
+                ", firstInstallTime=" + firstInstallTime +
+                '}';
+    }
 }
