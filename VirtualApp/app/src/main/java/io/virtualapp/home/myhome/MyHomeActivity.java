@@ -30,6 +30,7 @@ import io.virtualapp.R;
 import io.virtualapp.abs.ui.VActivity;
 import io.virtualapp.abs.ui.VUiKit;
 import io.virtualapp.glide.GlideUtils;
+import io.virtualapp.home.ListAppActivity;
 import io.virtualapp.home.LoadingActivity;
 import io.virtualapp.settings.SettingsActivity;
 
@@ -59,7 +60,9 @@ public class MyHomeActivity extends VActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle("应用多开助手");
 
-        findViewById(R.id.btn_set).setOnClickListener(v -> startActivity(new Intent(MyHomeActivity.this, SettingsActivity.class)));
+        findViewById(R.id.btn_set).setOnClickListener(v -> {
+            ListAppActivity.gotoListApp(getActivity());
+        });
         findViewById(R.id.btn_test).setOnClickListener(v -> startActivity(new Intent(MyHomeActivity.this, MyTestMenu.class)));
 
         ListView mListView = findViewById(R.id.list);

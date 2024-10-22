@@ -21,7 +21,7 @@ android {
     compileSdkVersion 33
     buildToolsVersion '28.0.3'
     defaultConfig {
-        applicationId "io.va.exposed64"
+        applicationId "com.tencent.mulapp"
         minSdkVersion 21
         targetSdkVersion 23
         versionCode 220

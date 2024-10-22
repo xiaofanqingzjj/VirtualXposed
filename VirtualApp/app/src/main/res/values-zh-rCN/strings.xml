@@ -1,6 +1,7 @@
 <resources>
     <!--<string name="app_name">VirtualApp</string>-->
-    <string name="app_name">VirtualXposed</string>
+    <string name="app_name">App双开助手</string>
+    <string name="vxp">App双开助手</string>
     <string name="desktop">桌面</string>
     <string name="add_app">添加应用</string>
     <string name="preparing">正在打开App，请稍等…</string>
