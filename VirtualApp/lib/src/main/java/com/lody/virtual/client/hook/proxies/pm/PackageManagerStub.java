@@ -19,12 +19,17 @@ import mirror.android.app.ActivityThread;
 public final class PackageManagerStub extends MethodInvocationProxy<MethodInvocationStub<IInterface>> {
 
     public PackageManagerStub() {
+        // ActivityThread通过反射获取系统ActivityThread里的sPackageManager对象
+        // 为sPackageManager创建一个代理对象
         super(new MethodInvocationStub<>(ActivityThread.sPackageManager.get()));
     }
 
     @Override
     protected void onBindMethods() {
         super.onBindMethods();
+
+        // 代理对象的方法调用
+
         addMethodProxy(new ResultStaticMethodProxy("addPermissionAsync", true));
         addMethodProxy(new ResultStaticMethodProxy("addPermission", true));
         addMethodProxy(new ResultStaticMethodProxy("performDexOpt", true));
@@ -46,7 +51,10 @@ public final class PackageManagerStub extends MethodInvocationProxy<MethodInvoca
 
     @Override
     public void inject() throws Throwable {
+        // 获取服务的代理对象
         final IInterface hookedPM = getInvocationStub().getProxyInterface();
+
+        // 把代理对象设回给ActivityThread的sPackageManager，替换
         ActivityThread.sPackageManager.set(hookedPM);
         BinderInvocationStub pmHookBinder = new BinderInvocationStub(getInvocationStub().getBaseInterface());
         pmHookBinder.copyMethodProxies(getInvocationStub());

@@ -38,10 +38,7 @@
     <TextView
         android:id="@+id/empty_view"
         android:gravity="center"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        android:visibility="gone"
-        android:text="No Data"
+        android:text="当前没有安装app, 点击右上角的设置按钮添加多开的app吧！"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

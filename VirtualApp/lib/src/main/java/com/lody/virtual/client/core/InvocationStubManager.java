@@ -1,5 +1,13 @@
 package com.lody.virtual.client.core;
 
+import static android.os.Build.VERSION_CODES.JELLY_BEAN_MR1;
+import static android.os.Build.VERSION_CODES.JELLY_BEAN_MR2;
+import static android.os.Build.VERSION_CODES.KITKAT;
+import static android.os.Build.VERSION_CODES.LOLLIPOP;
+import static android.os.Build.VERSION_CODES.LOLLIPOP_MR1;
+import static android.os.Build.VERSION_CODES.M;
+import static android.os.Build.VERSION_CODES.N;
+
 import android.os.Build;
 
 import com.lody.virtual.client.hook.base.MethodInvocationProxy;
@@ -62,14 +70,6 @@ import com.lody.virtual.helper.compat.BuildCompat;
 import java.util.HashMap;
 import java.util.Map;
 
-import static android.os.Build.VERSION_CODES.JELLY_BEAN_MR1;
-import static android.os.Build.VERSION_CODES.JELLY_BEAN_MR2;
-import static android.os.Build.VERSION_CODES.KITKAT;
-import static android.os.Build.VERSION_CODES.LOLLIPOP;
-import static android.os.Build.VERSION_CODES.LOLLIPOP_MR1;
-import static android.os.Build.VERSION_CODES.M;
-import static android.os.Build.VERSION_CODES.N;
-
 /**
  * @author Lody
  *
@@ -110,6 +110,7 @@ public final class InvocationStubManager {
 		}
 		injectInternal();
 		sInit = true;
+
 
 	}
 

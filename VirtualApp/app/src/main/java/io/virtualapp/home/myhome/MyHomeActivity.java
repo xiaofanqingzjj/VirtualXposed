@@ -55,8 +55,10 @@ public class MyHomeActivity extends VActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_home);
 
-        Toolbar toolbar = findViewById(R.id.tool_bar);
+        final Toolbar toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
+        toolbar.setTitle("应用多开助手");
+
         findViewById(R.id.btn_set).setOnClickListener(v -> startActivity(new Intent(MyHomeActivity.this, SettingsActivity.class)));
         findViewById(R.id.btn_test).setOnClickListener(v -> startActivity(new Intent(MyHomeActivity.this, MyTestMenu.class)));
 
@@ -76,6 +78,7 @@ public class MyHomeActivity extends VActivity {
                 return false;
             }
         });
+        mListView.setEmptyView(findViewById(R.id.empty_view));
         loadAsync();
 
         VirtualCore.get().registerObserver(packageObserver);
