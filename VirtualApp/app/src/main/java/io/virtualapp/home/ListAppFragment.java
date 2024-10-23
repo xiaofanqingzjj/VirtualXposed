@@ -183,15 +183,22 @@ public class ListAppFragment extends VFragment<ListAppContract.ListAppPresenter>
             }
 
             if (dataList.size() > 0) {
-                String path = dataList.get(0).path;
-                chooseInstallWay(() -> {
-                    Activity activity = getActivity();
-                    if (activity == null) {
-                        return;
-                    }
-                    Installd.startInstallerActivity(activity, dataList);
-                    activity.setResult(Activity.RESULT_OK);
-                }, path);
+                // 直接安装
+                Activity activity = getActivity();
+                if (activity == null) {
+                    return;
+                }
+                Installd.startInstallerActivity(activity, dataList);
+                activity.setResult(Activity.RESULT_OK);
+//                String path = dataList.get(0).path;
+//                chooseInstallWay(() -> {
+//                    Activity activity = getActivity();
+//                    if (activity == null) {
+//                        return;
+//                    }
+//                    Installd.startInstallerActivity(activity, dataList);
+//                    activity.setResult(Activity.RESULT_OK);
+//                }, path);
             }
         });
         mSelectFromExternal.setOnClickListener(v -> {

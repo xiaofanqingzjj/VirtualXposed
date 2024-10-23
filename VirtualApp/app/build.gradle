@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android' // 使用kotlin-android插件
 
 Properties properties = new Properties()
-def localProp = file(project.rootProject.file('local.properties'))
+def localProp = file(project.rootProject.file('gradle.properties'))
 if (localProp.exists()) {
     properties.load(localProp.newDataInputStream())
 }
