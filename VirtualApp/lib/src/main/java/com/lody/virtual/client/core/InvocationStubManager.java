@@ -193,9 +193,12 @@ public final class InvocationStubManager {
 
                 addInjector(new BatteryStatsStub());
             }
-            if (BuildCompat.isOreo()) {
-				addInjector(new AutoFillManagerStub());
-			}
+
+			// After Android 13, this will throw java.lang.NullPointerException: Attempt to invoke virtual method 'android.content.ContentResolver android.app.Application.getContentResolver()' on a null object reference
+			// move in application onCreate
+//            if (BuildCompat.isOreo()) {
+//				addInjector(new AutoFillManagerStub());
+//			}
             if (BuildCompat.isQ()) {
             	addInjector(new ActivityTaskManagerStub());
 
