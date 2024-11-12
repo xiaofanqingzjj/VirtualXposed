@@ -455,6 +455,7 @@ HOOK_DEF(void*, dlsym, void *handle, char *symbol) {
 }
 
 // int kill(pid_t pid, int sig);
+// (returnType funName argList)
 HOOK_DEF(int, kill, pid_t pid, int sig) {
     ALOGD(">>>>> kill >>> pid: %d, sig: %d.", pid, sig);
     int ret = syscall(__NR_kill, pid, sig);

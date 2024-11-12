@@ -1,5 +1,6 @@
 package io.virtualapp.sys;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -35,7 +36,7 @@ import io.virtualapp.home.models.AppInfoLite;
 /**
  * author: weishu on 18/3/19.
  */
-public class InstallerActivity extends AppCompatActivity {
+public class InstallerActivity extends Activity {
 
     private TextView mTips;
     private Button mLeft;
@@ -48,6 +49,8 @@ public class InstallerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getContentResolver();
 
         setContentView(R.layout.activity_install);
 

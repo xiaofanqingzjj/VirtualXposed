@@ -19,6 +19,7 @@ import mirror.android.app.ActivityThread;
 public final class PackageManagerStub extends MethodInvocationProxy<MethodInvocationStub<IInterface>> {
 
     public PackageManagerStub() {
+        // 获取ActivityThread的packageManager
         super(new MethodInvocationStub<>(ActivityThread.sPackageManager.get()));
     }
 
@@ -46,8 +47,16 @@ public final class PackageManagerStub extends MethodInvocationProxy<MethodInvoca
 
     @Override
     public void inject() throws Throwable {
+        // 获取代理对象
         final IInterface hookedPM = getInvocationStub().getProxyInterface();
+
+        // 把代理对象设置回ActivityThread的PackageManager
         ActivityThread.sPackageManager.set(hookedPM);
+
+
+//        getContext().getSystemService("")
+
+        // 替换系统的getPackageManager服务
         BinderInvocationStub pmHookBinder = new BinderInvocationStub(getInvocationStub().getBaseInterface());
         pmHookBinder.copyMethodProxies(getInvocationStub());
         pmHookBinder.replaceService("package");

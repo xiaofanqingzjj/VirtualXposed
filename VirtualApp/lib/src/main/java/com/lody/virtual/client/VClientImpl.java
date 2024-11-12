@@ -282,6 +282,8 @@ public final class VClientImpl extends IVClient.Stub {
         NativeEngine.launchEngine();
         Object mainThread = VirtualCore.mainThread();
         NativeEngine.startDexOverride();
+
+        // 创建app对应的context
         Context context = createPackageContext(data.appInfo.packageName);
         try {
             // anti-virus, fuck ESET-NOD32: a variant of Android/AdDisplay.AdLock.AL potentially unwanted
@@ -327,6 +329,7 @@ public final class VClientImpl extends IVClient.Stub {
             InvocationStubManager.getInstance().checkEnv(AppInstrumentation.class);
         }
 
+        // 获取app的ApplicationInfo
         ApplicationInfo applicationInfo = LoadedApk.mApplicationInfo.get(data.info);
         if (Build.VERSION.SDK_INT >= 26 && applicationInfo.splitNames == null) {
             applicationInfo.splitNames = new String[1];
@@ -355,10 +358,27 @@ public final class VClientImpl extends IVClient.Stub {
 
         if (Build.VERSION.SDK_INT >= 30)
             ApplicationConfig.setDefaultInstance.call(new Object[] { null });
+
+        // 创建app的application对象
+        /**
+         * 内部的创建逻辑如下：
+         * final String myProcessName = Process.myProcessName();
+         * String appClass = mApplicationInfo.getCustomApplicationClassNameForProcess(myProcessName);
+         * ...
+         * final java.lang.ClassLoader cl = getClassLoader();
+         * ContextImpl appContext = ContextImpl.createAppContext(mActivityThread, this);
+         * app = mActivityThread.mInstrumentation.newApplication(cl, appClass, appContext);
+         *      (Application) cl.loadClass(className).newInstance()
+         *      app.attach(context);
+         *           attachBaseContext(context);
+         *           mLoadedApk = ContextImpl.getImpl(context).mPackageInfo;
+         * ...
+         * return app;
+         */
         mInitialApplication = LoadedApk.makeApplication.call(data.info, false, null);
 
         // ExposedBridge.patchAppClassLoader(context);
-
+        // 把Application设置给app
         mirror.android.app.ActivityThread.mInitialApplication.set(mainThread, mInitialApplication);
         ContextFixer.fixContext(mInitialApplication);
 

@@ -1,6 +1,7 @@
 package com.lody.virtual.client.ipc;
 
 import android.content.Context;
+import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -57,6 +58,7 @@ public class ServiceManagerNative {
     }
 
     private static void linkBinderDied(final IBinder binder) {
+        Binder b;
         IBinder.DeathRecipient deathRecipient = new IBinder.DeathRecipient() {
             @Override
             public void binderDied() {
@@ -71,7 +73,7 @@ public class ServiceManagerNative {
     }
 
     public static IBinder getService(String name) {
-        if (VirtualCore.get().isServerProcess()) {
+        if (VirtualCore.get().isServerProcess()) { // 如果是x进程，直接就返回了
             return ServiceCache.getService(name);
         }
         IServiceFetcher fetcher = getServiceFetcher();

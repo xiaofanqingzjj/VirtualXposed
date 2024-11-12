@@ -37,6 +37,8 @@ public class ContextFixer {
             return;
         }
         InvocationStubManager.getInstance().checkEnv(GraphicsStatsStub.class);
+
+        // 获取原始的ContextImpl
         int deep = 0;
         while (context instanceof ContextWrapper) {
             context = ((ContextWrapper) context).getBaseContext();
@@ -45,6 +47,8 @@ public class ContextFixer {
                 return;
             }
         }
+
+        // 至空packageManager
         ContextImpl.mPackageManager.set(context, null);
         try {
             context.getPackageManager();
@@ -54,6 +58,8 @@ public class ContextFixer {
         if (!VirtualCore.get().isVAppProcess()) {
             return;
         }
+
+
         DropBoxManager dm = (DropBoxManager) context.getSystemService(Context.DROPBOX_SERVICE);
         BinderInvocationStub boxBinder = InvocationStubManager.getInstance().getInvocationStub(DropBoxManagerStub.class);
         if (boxBinder != null) {
@@ -65,6 +71,7 @@ public class ContextFixer {
         }
         String hostPkg = VirtualCore.get().getHostPkg();
         ContextImpl.mBasePackageName.set(context, hostPkg);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             ContextImplKitkat.mOpPackageName.set(context, hostPkg);
         }

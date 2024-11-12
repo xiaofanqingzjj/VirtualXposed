@@ -18,6 +18,8 @@ import mirror.RefStaticMethod;
 import mirror.android.os.ServiceManager;
 
 /**
+ * 代理服务Stub.asInterface(binder)返回的IInterface的asBinder方法
+ *
  * @author Lody
  */
 @SuppressWarnings("unchecked")
@@ -26,6 +28,8 @@ public class BinderInvocationStub extends MethodInvocationStub<IInterface> imple
     private static final String TAG = BinderInvocationStub.class.getSimpleName();
     private IBinder mBaseBinder;
 
+    // asInterfaceMethod根据binder返回aidl接口对象
+    // 获取到了使用方的接口实现对象
     public BinderInvocationStub(RefStaticMethod<IInterface> asInterfaceMethod, IBinder binder) {
         this(asInterface(asInterfaceMethod, binder));
     }
@@ -100,6 +104,11 @@ public class BinderInvocationStub extends MethodInvocationStub<IInterface> imple
         return mBaseBinder.isBinderAlive();
     }
 
+    /**
+     * 通过binder查询本地接口的时返回代理对象
+     * @param descriptor
+     * @return
+     */
     @Override
     public IInterface queryLocalInterface(String descriptor) {
         return getProxyInterface();

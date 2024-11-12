@@ -10,9 +10,9 @@ android {
         versionCode 1
         versionName "1.0"
         externalNativeBuild {
-            ndkBuild {
-                abiFilters "arm64-v8a", "x86_64"
-            }
+//            ndkBuild {
+//                abiFilters "arm64-v8a", "x86_64"
+//            }
         }
     }
     buildTypes {
@@ -22,9 +22,9 @@ android {
         }
     }
     externalNativeBuild {
-        ndkBuild {
-            path file("src/main/jni/Android.mk")
-        }
+//        ndkBuild {
+//            path file("src/main/jni/Android.mk")
+//        }
     }
     lintOptions {
         //IJobService need NewApi
